@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScreenFullPage — History</title>
+  <link rel="stylesheet" href="history.css">
+</head>
+<body>
+  <div class="history-container">
+    <!-- Header -->
+    <header class="history-header">
+      <div class="header-left">
+        <img src="icons/icon32.png" alt="icon" class="header-logo">
+        <div>
+          <h1 class="header-title">Screenshot History</h1>
+          <p id="history-count" class="header-subtitle">Loading...</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-clear-all" class="btn-danger" title="Clear all history">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          </svg>
+          <span>Clear All</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Gallery Grid -->
+    <div id="gallery" class="gallery"></div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="empty-state" style="display:none;">
+      <div class="empty-icon">📷</div>
+      <h2 class="empty-title">No screenshots yet</h2>
+      <p class="empty-desc">Capture your first full-page screenshot and it will appear here.</p>
+    </div>
+  </div>
+
+  <!-- Image Preview Modal -->
+  <div id="preview-modal" class="modal" style="display:none;">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span id="modal-info" class="modal-info"></span>
+        <div class="modal-actions">
+          <button id="modal-open" class="modal-btn" title="Open full view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          </button>
+          <button id="modal-close" class="modal-btn" title="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-loading">
+          <div class="spinner"></div>
+          <p>Loading screenshot...</p>
+        </div>
+        <img id="modal-image" class="modal-image" alt="Screenshot preview" style="display:none;">
+      </div>
+    </div>
+  </div>
+
+  <script src="history.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScreenFullPage — Options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="options-container">
+    <header class="options-header">
+      <img src="icons/icon48.png" alt="icon" class="options-logo">
+      <div>
+        <h1 class="options-title">ScreenFullPage</h1>
+        <p class="options-subtitle">Settings & Preferences</p>
+      </div>
+    </header>
+
+    <!-- Image Settings -->
+    <section class="settings-section">
+      <h2 class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        Image Settings
+      </h2>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <label class="setting-label">Default Format</label>
+          <p class="setting-desc">Choose the default image format for downloads</p>
+        </div>
+        <select id="opt-format" class="setting-select">
+          <option value="png">PNG (lossless)</option>
+          <option value="jpeg">JPEG (smaller size)</option>
+        </select>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <label class="setting-label">JPEG Quality</label>
+          <p class="setting-desc">Higher quality = larger file size</p>
+        </div>
+        <div class="setting-slider-group">
+          <input id="opt-quality" type="range" min="10" max="100" value="92" class="setting-slider">
+          <span id="opt-quality-value" class="setting-slider-value">92%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PDF Settings -->
+    <section class="settings-section">
+      <h2 class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
+        PDF Settings
+      </h2>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <label class="setting-label">Paper Size</label>
+          <p class="setting-desc">Default paper size for PDF exports</p>
+        </div>
+        <select id="opt-pdf-size" class="setting-select">
+          <option value="a4">A4 (210 × 297 mm)</option>
+          <option value="letter">Letter (8.5 × 11 in)</option>
+          <option value="legal">Legal (8.5 × 14 in)</option>
+          <option value="tabloid">Tabloid (11 × 17 in)</option>
+        </select>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <label class="setting-label">Orientation</label>
+          <p class="setting-desc">Default page orientation</p>
+        </div>
+        <select id="opt-pdf-orientation" class="setting-select">
+          <option value="portrait">Portrait</option>
+          <option value="landscape">Landscape</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Download Settings -->
+    <section class="settings-section">
+      <h2 class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download Settings
+      </h2>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <label class="setting-label">Auto Download</label>
+          <p class="setting-desc">Automatically download the screenshot after capture</p>
+        </div>
+        <label class="toggle">
+          <input id="opt-auto-download" type="checkbox">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <label class="setting-label">Include URL in filename</label>
+          <p class="setting-desc">Add the page hostname to the filename</p>
+        </div>
+        <label class="toggle">
+          <input id="opt-include-url" type="checkbox" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <label class="setting-label">Include timestamp</label>
+          <p class="setting-desc">Add date and time to the filename</p>
+        </div>
+        <label class="toggle">
+          <input id="opt-include-timestamp" type="checkbox" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Capture Settings -->
+    <section class="settings-section">
+      <h2 class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        Capture Settings
+      </h2>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <label class="setting-label">Capture Delay</label>
+          <p class="setting-desc">Wait time (ms) between scrolls. Increase for pages with lazy-loaded images.</p>
+        </div>
+        <div class="setting-slider-group">
+          <input id="opt-delay" type="range" min="0" max="2000" value="150" step="50" class="setting-slider">
+          <span id="opt-delay-value" class="setting-slider-value">150ms</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Save indicator -->
+    <div id="save-indicator" class="save-indicator">
+      <span>✓ Settings saved</span>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

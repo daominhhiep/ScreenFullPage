@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScreenFullPage</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div class="popup-header">
+      <img src="icons/icon32.png" alt="icon" class="popup-logo">
+      <span class="popup-title">ScreenFullPage</span>
+    </div>
+
+    <!-- Ready State -->
+    <div id="state-ready" class="popup-state active">
+      <button id="btn-capture" class="btn-capture">
+        <svg class="capture-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <span>Capture Full Page</span>
+      </button>
+      <p class="shortcut-hint">or press <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd></p>
+    </div>
+
+    <!-- Capturing State -->
+    <div id="state-capturing" class="popup-state">
+      <div class="capture-animation">
+        <div class="scan-line"></div>
+        <div class="scan-page">
+          <div class="scan-block"></div>
+          <div class="scan-block short"></div>
+          <div class="scan-block"></div>
+          <div class="scan-block medium"></div>
+          <div class="scan-block short"></div>
+        </div>
+      </div>
+      <p id="progress-text" class="progress-text">Preparing...</p>
+      <div class="progress-bar-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div id="state-error" class="popup-state">
+      <div class="error-icon">⚠️</div>
+      <p id="error-message" class="error-message">Something went wrong</p>
+      <button id="btn-retry" class="btn-retry">Try Again</button>
+    </div>
+
+    <!-- Complete State -->
+    <div id="state-complete" class="popup-state">
+      <div class="complete-icon">✅</div>
+      <p class="complete-text">Screenshot captured!</p>
+      <p class="complete-subtext">Opening in new tab...</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="popup-footer">
+      <button id="btn-history" class="btn-link" title="Screenshot History">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span>History</span>
+      </button>
+      <button id="btn-options" class="btn-link" title="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <span>Options</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

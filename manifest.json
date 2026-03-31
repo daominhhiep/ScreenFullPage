@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "ScreenFullPage - Full Page Screen Capture",
+  "version": "1.0.0",
+  "description": "Capture a screenshot of your current page in entirety and reliably — without requesting any extra permissions!",
+  "permissions": ["activeTab", "scripting", "offscreen", "storage", "downloads", "unlimitedStorage"],
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Capture Full Page",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "take-screenshot": {
+      "suggested_key": {
+        "default": "Alt+Shift+P",
+        "mac": "Alt+Shift+P"
+      },
+      "description": "Take a full page screenshot"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

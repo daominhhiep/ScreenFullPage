@@ -1,0 +1,279 @@
+/* popup.css — Premium dark popup styling */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 300px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #1a1b2e;
+  color: #e0e0e0;
+  overflow: hidden;
+}
+
+.popup-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ─── Header ──────────────────────────── */
+.popup-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.popup-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+}
+
+.popup-title {
+  font-size: 14px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #a78bfa, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── States ──────────────────────────── */
+.popup-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.popup-state.active {
+  display: flex;
+}
+
+/* ─── Ready State ─────────────────────── */
+.btn-capture {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #6C5CE7, #0984E3);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-capture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.btn-capture:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+}
+
+.btn-capture:hover::before {
+  opacity: 1;
+}
+
+.btn-capture:active {
+  transform: translateY(0);
+}
+
+.capture-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.shortcut-hint {
+  font-size: 11px;
+  color: #666;
+  text-align: center;
+}
+
+.shortcut-hint kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  font-size: 10px;
+  font-family: inherit;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  color: #999;
+}
+
+/* ─── Capturing State ─────────────────── */
+.capture-animation {
+  width: 80px;
+  height: 100px;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.scan-page {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.scan-block {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  width: 100%;
+}
+
+.scan-block.short {
+  width: 60%;
+}
+
+.scan-block.medium {
+  width: 80%;
+}
+
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #6C5CE7, #0984E3, transparent);
+  box-shadow: 0 0 15px rgba(108, 92, 231, 0.6);
+  animation: scanDown 1.5s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes scanDown {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+.progress-text {
+  font-size: 12px;
+  color: #a0a0a0;
+  text-align: center;
+  font-weight: 500;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #6C5CE7, #0984E3);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* ─── Error State ─────────────────────── */
+.error-icon {
+  font-size: 28px;
+}
+
+.error-message {
+  font-size: 12px;
+  color: #ff6b6b;
+  text-align: center;
+  line-height: 1.4;
+  padding: 0 8px;
+}
+
+.btn-retry {
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e0e0e0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-retry:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ─── Complete State ──────────────────── */
+.complete-icon {
+  font-size: 32px;
+}
+
+.complete-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4ade80;
+}
+
+.complete-subtext {
+  font-size: 11px;
+  color: #666;
+}
+
+/* ─── Footer ──────────────────────────── */
+.popup-footer {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.btn-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.btn-link:hover {
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.08);
+}
+
+.btn-link svg {
+  opacity: 0.7;
+}

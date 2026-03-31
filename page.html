@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScreenFullPage — Screenshot</title>
+  <link rel="stylesheet" href="page.css">
+</head>
+<body>
+  <!-- Toolbar -->
+  <header class="toolbar">
+    <div class="toolbar-left">
+      <img src="icons/icon32.png" alt="icon" class="toolbar-logo">
+      <h1 class="toolbar-title">ScreenFullPage</h1>
+      <span id="page-info" class="toolbar-info"></span>
+    </div>
+    <div class="toolbar-right">
+      <!-- Format selector -->
+      <div class="toolbar-group">
+        <select id="format-select" class="toolbar-select" title="Export format">
+          <option value="png">PNG</option>
+          <option value="jpeg">JPEG</option>
+          <option value="pdf">PDF</option>
+        </select>
+      </div>
+
+      <!-- JPEG quality slider (visible only when JPEG selected) -->
+      <div id="quality-group" class="toolbar-group" style="display:none;">
+        <label class="toolbar-label">Quality</label>
+        <input id="quality-slider" type="range" min="10" max="100" value="92" class="toolbar-slider">
+        <span id="quality-value" class="toolbar-value">92%</span>
+      </div>
+
+      <!-- PDF paper size (visible only when PDF selected) -->
+      <div id="pdf-group" class="toolbar-group" style="display:none;">
+        <select id="pdf-size" class="toolbar-select" title="Paper size">
+          <option value="a4">A4</option>
+          <option value="letter">Letter</option>
+          <option value="legal">Legal</option>
+        </select>
+        <select id="pdf-orientation" class="toolbar-select" title="Orientation">
+          <option value="portrait">Portrait</option>
+          <option value="landscape">Landscape</option>
+        </select>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="toolbar-group toolbar-actions">
+        <button id="btn-download" class="btn-action btn-primary" title="Download">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Download</span>
+        </button>
+        <button id="btn-copy" class="btn-action" title="Copy to clipboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <span>Copy</span>
+        </button>
+        <button id="btn-recapture" class="btn-action" title="Recapture">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+          <span>Recapture</span>
+        </button>
+        <button id="btn-history" class="btn-action" title="View all screenshots">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span>History</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Image Container -->
+  <main class="image-container">
+    <div id="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading screenshot...</p>
+    </div>
+    <div id="image-wrapper" class="image-wrapper" style="display:none;">
+      <img id="screenshot" class="screenshot" alt="Full page screenshot" draggable="true">
+    </div>
+    <div id="empty-state" class="empty-state" style="display:none;">
+      <p>No screenshot found. Capture a page first!</p>
+    </div>
+  </main>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+  <script src="libs/jspdf.umd.min.js"></script>
+  <script src="page.js"></script>
+</body>
+</html>
