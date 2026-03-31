@@ -2,7 +2,7 @@
 
 ![ScreenFullPage Icon](icons/icon128.png)
 
-A high-performance Manifest V3 Chrome Extension that allows you to capture a screenshot of your current page in its entirety and reliably—without requesting any extra permissions!
+A high-performance Manifest V3 Chrome Extension that captures full-page screenshots of the current tab and lets you save them locally as PNG, JPEG, or PDF.
 
 ## ✨ Features
 
@@ -10,7 +10,7 @@ A high-performance Manifest V3 Chrome Extension that allows you to capture a scr
 *   **Smart Scroll Detection:** Intelligently handles modern Web Apps and LLM Chat UIs (like ChatGPT, Claude, Gemini) with inner scrolling containers.
 *   **High Quality Export:** Save your screenshots as **PNG**, **JPEG** (with adjustable quality), or **PDF** (with multi-page support).
 *   **History Gallery:** Automatically saves your last 50 captures locally so you can review, redownload, or manage them easily.
-*   **No Bloat & Privacy First:** Built entirely with pure HTML/CSS/JS. No tracking, no ads, and only requires the essential `activeTab` permission.
+*   **No Bloat & Privacy First:** Built entirely with pure HTML/CSS/JS. No tracking, no ads, and no remote code or external services.
 *   **Keyboard Shortcut:** Quickly capture the current tab using `Alt+Shift+P` (or `Option+Shift+P` on Mac).
 
 ## 🚀 Installation (Developer Mode)
@@ -41,7 +41,8 @@ Before uploading to the Chrome Web Store Developer Dashboard, you need to packag
     *   *Note: Do not zip the parent folder itself, zip the contents directly.*
 3.  Go to the [Chrome Developer Dashboard](https://chrome.google.com/webstore/developer/dashboard) and create a new item by uploading your `.zip` file.
 4.  Fill in the required store listing details (Description, Screenshots, Promotional Images).
-5.  Submit for review!
+5.  Publish an accurate privacy policy URL in the Chrome Web Store dashboard that explains screenshots are processed locally and stored in `chrome.storage.local` until the user deletes them.
+6.  Submit for review!
 
 ## 📝 License
 

@@ -2,6 +2,11 @@
 // Injected into the active tab by background.js
 
 (() => {
+  if (window.__screenFullPageInjected) {
+    return;
+  }
+  window.__screenFullPageInjected = true;
+
   // Store original styles to restore later
   let originalStyles = [];
   let injectedStyleEl = null;

@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "ScreenFullPage - Full Page Screen Capture",
   "version": "1.0.0",
-  "description": "Capture a screenshot of your current page in entirety and reliably — without requesting any extra permissions!",
-  "permissions": ["activeTab", "scripting", "offscreen", "storage", "downloads", "unlimitedStorage"],
+  "description": "Capture full-page screenshots of the current tab, then save them locally as PNG, JPEG, or PDF.",
+  "permissions": ["activeTab", "scripting", "offscreen", "storage", "unlimitedStorage"],
   "action": {
     "default_icon": {
       "16": "icons/icon16.png",

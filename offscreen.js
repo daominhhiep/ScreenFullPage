@@ -85,8 +85,9 @@ async function stitchTiles({
       }
     }
 
-    // Export canvas to data URL
-    const imageDataUrl = canvas.toDataURL('image/png');
+    // Export through Blob so the offscreen reason matches actual behavior.
+    const imageBlob = await canvasToBlob(canvas, 'image/png');
+    const imageDataUrl = await blobToDataUrl(imageBlob);
 
     // Send result back to background.js
     chrome.runtime.sendMessage({
@@ -115,5 +116,26 @@ function loadImage(dataUrl) {
     img.onload = () => resolve(img);
     img.onerror = (err) => reject(new Error('Failed to load image tile'));
     img.src = dataUrl;
+  });
+}
+
+function canvasToBlob(canvas, type) {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (blob) {
+        resolve(blob);
+      } else {
+        reject(new Error('Failed to export stitched image'));
+      }
+    }, type);
+  });
+}
+
+function blobToDataUrl(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error('Failed to read stitched image blob'));
+    reader.readAsDataURL(blob);
   });
 }

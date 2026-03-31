@@ -19,6 +19,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnHistory = document.getElementById('btn-history');
 
   let captureData = null;
+  let autoDownloadTriggered = false;
+  let viewerSettings = {
+    format: 'png',
+    jpegQuality: 92,
+    pdfSize: 'a4',
+    pdfOrientation: 'portrait',
+    autoDownload: false,
+    includeUrl: true,
+    includeTimestamp: true,
+  };
+
+  chrome.storage.sync.get(viewerSettings, (settings) => {
+    viewerSettings = settings;
+    applyViewerSettings();
+  });
 
   // ─── Load Screenshot ──────────────────────────────────
   chrome.storage.local.get('lastCapture', (result) => {
@@ -36,6 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const dims = `${screenshot.naturalWidth}×${screenshot.naturalHeight}`;
         pageInfo.textContent = `${url} • ${dims} • ${date}`;
         document.title = `ScreenFullPage — ${url}`;
+
+        maybeAutoDownload();
       };
 
       screenshot.onerror = () => {
@@ -85,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (format === 'jpeg') {
       mimeType = 'image/jpeg';
       extension = 'jpg';
-      quality = parseInt(qualitySlider.value) / 100;
+      quality = parseInt(qualitySlider.value, 10) / 100;
 
       // Fill white background for JPEG (no transparency)
       const tempCanvas = document.createElement('canvas');
@@ -242,22 +259,30 @@ document.addEventListener('DOMContentLoaded', () => {
   // ─── Utilities ────────────────────────────────────────
   function getFilename(extension) {
     const url = captureData?.pageUrl || '';
-    let hostname = 'screenshot';
-    try {
-      hostname = new URL(url).hostname.replace(/\./g, '_');
-    } catch (e) {}
+    const parts = ['screenfullpage'];
 
-    const now = new Date();
-    const timestamp = [
-      now.getFullYear(),
-      String(now.getMonth() + 1).padStart(2, '0'),
-      String(now.getDate()).padStart(2, '0'),
-      String(now.getHours()).padStart(2, '0'),
-      String(now.getMinutes()).padStart(2, '0'),
-      String(now.getSeconds()).padStart(2, '0'),
-    ].join('');
+    if (viewerSettings.includeUrl) {
+      let hostname = 'screenshot';
+      try {
+        hostname = new URL(url).hostname.replace(/\./g, '_');
+      } catch (e) {}
+      parts.push(hostname);
+    }
 
-    return `screenfullpage_${hostname}_${timestamp}.${extension}`;
+    if (viewerSettings.includeTimestamp) {
+      const now = new Date();
+      const timestamp = [
+        now.getFullYear(),
+        String(now.getMonth() + 1).padStart(2, '0'),
+        String(now.getDate()).padStart(2, '0'),
+        String(now.getHours()).padStart(2, '0'),
+        String(now.getMinutes()).padStart(2, '0'),
+        String(now.getSeconds()).padStart(2, '0'),
+      ].join('');
+      parts.push(timestamp);
+    }
+
+    return `${parts.join('_')}.${extension}`;
   }
 
   function triggerDownloadBlob(url, filename) {
@@ -279,5 +304,28 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       toast.className = 'toast';
     }, 2500);
+  }
+
+  function applyViewerSettings() {
+    formatSelect.value = viewerSettings.format;
+    qualitySlider.value = String(viewerSettings.jpegQuality);
+    qualityValue.textContent = viewerSettings.jpegQuality + '%';
+    pdfSize.value = viewerSettings.pdfSize;
+    pdfOrientation.value = viewerSettings.pdfOrientation;
+    qualityGroup.style.display = viewerSettings.format === 'jpeg' ? 'flex' : 'none';
+    pdfGroup.style.display = viewerSettings.format === 'pdf' ? 'flex' : 'none';
+    maybeAutoDownload();
+  }
+
+  function maybeAutoDownload() {
+    if (!viewerSettings.autoDownload || autoDownloadTriggered || !captureData) {
+      return;
+    }
+    if (!screenshot.complete || !screenshot.naturalWidth) {
+      return;
+    }
+
+    autoDownloadTriggered = true;
+    btnDownload.click();
   }
 });

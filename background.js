@@ -275,6 +275,7 @@ async function startCapture(tabId) {
 // ─── Handle Stitch Result ────────────────────────────────────────────
 function handleStitchComplete(imageDataUrl, pageUrl) {
   captureInProgress = false;
+  closeOffscreenDocument();
 
   if (!imageDataUrl) {
     notifyPopup({ action: 'captureError', error: 'Failed to stitch image' });
@@ -383,9 +384,23 @@ async function ensureOffscreenDocument() {
 
   await chrome.offscreen.createDocument({
     url: 'offscreen.html',
-    reasons: ['DOM_PARSER'],
+    reasons: ['BLOBS'],
     justification: 'Stitch captured screenshot tiles into a single image using Canvas API',
   });
+}
+
+async function closeOffscreenDocument() {
+  try {
+    const existingContexts = await chrome.runtime.getContexts({
+      contextTypes: ['OFFSCREEN_DOCUMENT'],
+    });
+
+    if (existingContexts.length > 0) {
+      await chrome.offscreen.closeDocument();
+    }
+  } catch (error) {
+    console.warn('Failed to close offscreen document:', error);
+  }
 }
 
 // ─── Utilities ──────────────────────────────────────────────────────
